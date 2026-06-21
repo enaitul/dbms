@@ -1494,6 +1494,255 @@
     body.dark .note-display {
       background: rgba(255,255,255,0.06);
     }
+
+    /* ===== Hamburger / mobile nav ===== */
+    .hamburger-btn {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border: 3px solid var(--ink);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: 3px 3px 0 var(--ink);
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 0;
+      transition: transform .16s ease, box-shadow .16s ease;
+      flex-shrink: 0;
+    }
+
+    .hamburger-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+
+    .hamburger-btn span {
+      display: block;
+      width: 18px;
+      height: 2.5px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .25s ease, opacity .25s ease;
+    }
+
+    .hamburger-btn.open span:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+    }
+    .hamburger-btn.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .hamburger-btn.open span:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
+    }
+
+    /* Mobile drawer overlay */
+    .mobile-drawer-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 50;
+      opacity: 0;
+      transition: opacity .25s ease;
+    }
+    .mobile-drawer-overlay.show {
+      opacity: 1;
+    }
+
+    /* Mobile drawer panel (slides in from right) */
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 60;
+      width: min(320px, 88vw);
+      background: var(--white);
+      border-left: 4px solid var(--ink);
+      box-shadow: -6px 0 0 var(--ink);
+      display: flex;
+      flex-direction: column;
+      transform: translateX(110%);
+      transition: transform .3s cubic-bezier(.2,.75,.2,1);
+      overflow-y: auto;
+    }
+
+    .mobile-drawer.open {
+      transform: translateX(0);
+    }
+
+    .mobile-drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 16px 14px;
+      border-bottom: 3px solid var(--ink);
+      background: var(--yellow);
+    }
+
+    .mobile-drawer-title {
+      font-size: 1rem;
+      font-weight: 1000;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .mobile-drawer-close {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--ink);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: 2px 2px 0 var(--ink);
+      font-size: 1.1rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      line-height: 1;
+    }
+
+    .mobile-drawer-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px 16px;
+      flex: 1;
+    }
+
+    .mobile-section-label {
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .6;
+      margin-bottom: 8px;
+    }
+
+    .mobile-target-card {
+      padding: 14px;
+      border: 3px solid var(--ink);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .mobile-settings-card {
+      padding: 14px;
+      border: 3px solid var(--ink);
+      border-radius: 8px;
+      background: var(--paper);
+      display: grid;
+      gap: 14px;
+    }
+
+    /* ===== Mobile topbar tweaks ===== */
+    @media (max-width: 620px) {
+      .hamburger-btn {
+        display: flex;
+      }
+
+      /* Hide the desktop top-actions buttons */
+      .top-actions {
+        display: none !important;
+      }
+
+      /* Topbar: league badge only on mobile */
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        margin-bottom: 16px;
+      }
+
+      /* Hamburger: fixed top-right, hides on scroll */
+      .hamburger-btn {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        z-index: 70;
+        transition: opacity .25s ease, transform .25s ease, box-shadow .16s ease;
+      }
+
+      .hamburger-btn.scrolled-away {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-8px);
+      }
+
+      .league-badge {
+        flex: 1;
+        min-width: 0;
+        max-width: calc(100% - 60px);
+      }
+
+      .league-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* Hero tighter on mobile */
+      .hero {
+        gap: 12px;
+        margin-bottom: 14px;
+        align-items: center;
+        grid-template-columns: 1fr auto;
+      }
+
+      .hero > div:first-child {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 12px;
+      }
+
+      .hero-side {
+        align-self: center;
+      }
+
+      /* Toolbar: stack on very small */
+      .toolbar {
+        gap: 10px;
+        padding: 10px 12px;
+      }
+
+      /* Stats: full width on tiny screens */
+      .stats {
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .stat-card {
+        padding: 10px 12px;
+      }
+
+      /* Tabs row */
+      .tabs {
+        gap: 8px;
+      }
+
+      .tab-button {
+        flex: 1;
+        min-height: 40px;
+        padding: 0 10px;
+        font-size: .9rem;
+      }
+
+      /* Page padding */
+      .page {
+        padding: 16px 0 28px;
+      }
+    }
+
+    /* Show overlay and drawer when active */
+    .mobile-drawer-overlay.active {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -1506,6 +1755,12 @@
           <span class="league-name" id="leagueName">Unranked</span>
         </div>
       </div>
+
+      <!-- Hamburger button: shown only on mobile via CSS -->
+      <button class="hamburger-btn" id="hamburgerBtn" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
       <div class="top-actions">
         <div class="dropdown">
           <button class="dropdown-toggle" id="targetToggle" type="button">Target</button>
@@ -1621,6 +1876,61 @@
     <div class="footer" id="footer">43 lectures waiting.</div>
     <div class="credit">Made by Md Enaitul Hoque.</div>
   </main>
+
+  <!-- Mobile drawer overlay -->
+  <div class="mobile-drawer-overlay" id="mobileDrawerOverlay" aria-hidden="true"></div>
+
+  <!-- Mobile drawer -->
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Menu" aria-hidden="true">
+    <div class="mobile-drawer-header">
+      <span class="mobile-drawer-title">Menu</span>
+      <button class="mobile-drawer-close" id="mobileDrawerClose" type="button" aria-label="Close menu">&#10005;</button>
+    </div>
+    <div class="mobile-drawer-body">
+      <div>
+        <div class="mobile-section-label">Daily Target</div>
+        <div class="mobile-target-card">
+          <div class="target-label" id="mTargetLabel">Lectures target</div>
+          <div class="target-row">
+            <button class="target-btn" id="mTargetMinus" type="button" aria-label="Decrease target">-</button>
+            <input class="target-input" id="mTargetInput" type="number" min="0" max="43" step="1" inputmode="numeric" value="0">
+            <button class="target-btn" id="mTargetPlus" type="button" aria-label="Increase target">+</button>
+          </div>
+          <div class="target-status" id="mTargetStatus">Set a target.</div>
+          <button class="target-action" id="mNewTarget" type="button">New target</button>
+        </div>
+      </div>
+      <div>
+        <div class="mobile-section-label">Settings</div>
+        <div class="mobile-settings-card">
+          <div class="setting-block">
+            <div class="setting-label">Checked items</div>
+            <div class="segmented" role="group"><button id="mMoveBottomOption" type="button">Move bottom</button><button id="mStayPlaceOption" type="button">Stay here</button></div>
+          </div>
+          <div class="setting-block">
+            <div class="setting-label">List format</div>
+            <div class="segmented" role="group"><button id="mClassicLayoutOption" type="button">Classic</button><button id="mCompactLayoutOption" type="button">Matrix</button></div>
+          </div>
+          <div class="setting-block">
+            <div class="setting-label">Theme</div>
+            <button class="theme-toggle" id="mThemeToggle" type="button">Dark mode</button>
+          </div>
+          <div class="setting-block">
+            <div class="setting-label">Color</div>
+            <div class="segmented" role="group"><button id="mColorYellowOption" type="button">Yellow</button><button id="mColorBlueOption" type="button">Blue</button><button id="mColorPinkOption" type="button">Pink</button></div>
+          </div>
+          <div class="setting-block">
+            <div class="setting-label">Font</div>
+            <div class="segmented" role="group"><button id="mFontSansOption" type="button">Sans</button><button id="mFontSerifOption" type="button">Serif</button><button id="mFontMonoOption" type="button">Mono</button></div>
+          </div>
+          <div class="setting-block">
+            <div class="setting-label">Data Backup</div>
+            <div class="segmented" role="group"><button id="mExportBtn" type="button">Export</button><button id="mImportBtn" type="button">Import</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
 
   <div class="popup-overlay" id="easterEggPopup" aria-hidden="true">
     <div class="popup-content">
@@ -2903,6 +3213,153 @@
     });
 
     render();
+
+    // ===== Mobile hamburger drawer =====
+    const hamburgerBtn = document.getElementById("hamburgerBtn");
+    const mobileDrawer = document.getElementById("mobileDrawer");
+    const mobileDrawerOverlay = document.getElementById("mobileDrawerOverlay");
+    const mobileDrawerClose = document.getElementById("mobileDrawerClose");
+
+    function openDrawer() {
+      mobileDrawer.classList.add("open");
+      mobileDrawerOverlay.classList.add("active");
+      requestAnimationFrame(() => mobileDrawerOverlay.classList.add("show"));
+      hamburgerBtn.classList.add("open");
+      hamburgerBtn.setAttribute("aria-expanded", "true");
+      mobileDrawer.setAttribute("aria-hidden", "false");
+      mobileDrawerOverlay.setAttribute("aria-hidden", "false");
+      syncDrawerState();
+    }
+
+    function closeDrawer() {
+      mobileDrawer.classList.remove("open");
+      mobileDrawerOverlay.classList.remove("show");
+      hamburgerBtn.classList.remove("open");
+      hamburgerBtn.setAttribute("aria-expanded", "false");
+      mobileDrawer.setAttribute("aria-hidden", "true");
+      setTimeout(() => mobileDrawerOverlay.classList.remove("active"), 280);
+    }
+
+    hamburgerBtn.addEventListener("click", () => {
+      mobileDrawer.classList.contains("open") ? closeDrawer() : openDrawer();
+    });
+    mobileDrawerClose.addEventListener("click", closeDrawer);
+    mobileDrawerOverlay.addEventListener("click", closeDrawer);
+
+    // ===== Sync drawer controls with main app state =====
+    function syncDrawerState() {
+      // Target
+      const mti = document.getElementById("mTargetInput");
+      if (mti) mti.value = targetInput.value;
+      const mts = document.getElementById("mTargetStatus");
+      if (mts) mts.textContent = document.getElementById("targetStatus").textContent;
+      const mtl = document.getElementById("mTargetLabel");
+      if (mtl) mtl.textContent = document.getElementById("targetLabel").textContent;
+      // Checked placement
+      syncSegmented("moveBottomOption", "mMoveBottomOption");
+      syncSegmented("stayPlaceOption", "mStayPlaceOption");
+      // Layout
+      syncSegmented("classicLayoutOption", "mClassicLayoutOption");
+      syncSegmented("compactLayoutOption", "mCompactLayoutOption");
+      // Theme toggle text
+      const mThTog = document.getElementById("mThemeToggle");
+      if (mThTog) mThTog.textContent = document.getElementById("themeToggle").textContent;
+      // Colors
+      syncSegmented("colorYellowOption", "mColorYellowOption");
+      syncSegmented("colorBlueOption", "mColorBlueOption");
+      syncSegmented("colorPinkOption", "mColorPinkOption");
+      // Font
+      syncSegmented("fontSansOption", "mFontSansOption");
+      syncSegmented("fontSerifOption", "mFontSerifOption");
+      syncSegmented("fontMonoOption", "mFontMonoOption");
+    }
+
+    function syncSegmented(sourceId, targetId) {
+      const src = document.getElementById(sourceId);
+      const tgt = document.getElementById(targetId);
+      if (!src || !tgt) return;
+      tgt.classList.toggle("active", src.classList.contains("active"));
+    }
+
+    // Wire up mobile drawer controls to the same handlers as desktop
+    const mTargetInput = document.getElementById("mTargetInput");
+    const mTargetMinus = document.getElementById("mTargetMinus");
+    const mTargetPlus = document.getElementById("mTargetPlus");
+    const mNewTarget = document.getElementById("mNewTarget");
+    const mThemeToggle = document.getElementById("mThemeToggle");
+
+    if (mTargetInput) {
+      mTargetInput.addEventListener("input", () => {
+        targetInput.value = mTargetInput.value;
+        setDailyTarget(mTargetInput.value);
+        syncDrawerState();
+      });
+    }
+    if (mTargetMinus) mTargetMinus.addEventListener("click", () => { setDailyTarget(currentTarget().target - 1); syncDrawerState(); });
+    if (mTargetPlus)  mTargetPlus.addEventListener("click",  () => { setDailyTarget(currentTarget().target + 1); syncDrawerState(); });
+    if (mNewTarget)   mNewTarget.addEventListener("click", () => { startNewTarget(); syncDrawerState(); });
+    if (mThemeToggle) mThemeToggle.addEventListener("click", () => { toggleTheme(); syncDrawerState(); });
+
+    document.getElementById("mMoveBottomOption")?.addEventListener("click", () => { setCheckedPlacement("bottom"); syncDrawerState(); });
+    document.getElementById("mStayPlaceOption")?.addEventListener("click",   () => { setCheckedPlacement("stay"); syncDrawerState(); });
+    document.getElementById("mClassicLayoutOption")?.addEventListener("click", () => { setLayout("classic"); syncDrawerState(); });
+    document.getElementById("mCompactLayoutOption")?.addEventListener("click", () => { setLayout("compact"); syncDrawerState(); });
+    document.getElementById("mColorYellowOption")?.addEventListener("click", () => { setColor("yellow"); syncDrawerState(); });
+    document.getElementById("mColorBlueOption")?.addEventListener("click",  () => { setColor("blue"); syncDrawerState(); });
+    document.getElementById("mColorPinkOption")?.addEventListener("click",  () => { setColor("pink"); syncDrawerState(); });
+    document.getElementById("mFontSansOption")?.addEventListener("click",   () => { setFont("sans"); syncDrawerState(); });
+    document.getElementById("mFontSerifOption")?.addEventListener("click",  () => { setFont("serif"); syncDrawerState(); });
+    document.getElementById("mFontMonoOption")?.addEventListener("click",   () => { setFont("mono"); syncDrawerState(); });
+
+    document.getElementById("mExportBtn")?.addEventListener("click", () => {
+      const data = {
+        checked: localStorage.getItem(CHECKED_KEY),
+        dates: localStorage.getItem(ITEM_DATES_KEY),
+        targets: localStorage.getItem(TARGETS_KEY),
+        revised: localStorage.getItem(REVISED_KEY),
+        settings: localStorage.getItem(SETTINGS_KEY),
+        theme: localStorage.getItem(THEME_KEY),
+        notes: localStorage.getItem(NOTES_KEY)
+      };
+      const str = btoa(encodeURIComponent(JSON.stringify(data)));
+      navigator.clipboard.writeText(str).then(() => alert("Backup code copied to clipboard!"));
+    });
+
+    document.getElementById("mImportBtn")?.addEventListener("click", () => {
+      const str = prompt("Paste your backup code here:");
+      if (str) {
+        try {
+          const data = JSON.parse(decodeURIComponent(atob(str)));
+          if (data.checked) localStorage.setItem(CHECKED_KEY, data.checked);
+          if (data.dates) localStorage.setItem(ITEM_DATES_KEY, data.dates);
+          if (data.targets) localStorage.setItem(TARGETS_KEY, data.targets);
+          if (data.revised) localStorage.setItem(REVISED_KEY, data.revised);
+          if (data.settings) localStorage.setItem(SETTINGS_KEY, data.settings);
+          if (data.theme) localStorage.setItem(THEME_KEY, data.theme);
+          if (data.notes) localStorage.setItem(NOTES_KEY, data.notes);
+          alert("Import successful! Reloading...");
+          location.reload();
+        } catch(e) {
+          alert("Invalid backup code.");
+        }
+      }
+    });
+
+    // Close drawer on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && mobileDrawer.classList.contains("open")) closeDrawer();
+    });
+
+    // Hide hamburger when scrolled past the topbar
+    (function() {
+      const topbar = document.querySelector(".topbar");
+      function onScroll() {
+        if (!hamburgerBtn) return;
+        const topbarBottom = topbar.getBoundingClientRect().bottom;
+        hamburgerBtn.classList.toggle("scrolled-away", topbarBottom < 0);
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+    })();
   </script>
 </body>
 </html>
